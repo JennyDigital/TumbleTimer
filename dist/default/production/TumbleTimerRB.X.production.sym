@@ -1,0 +1,269 @@
+000     @SCRATCH
+001     @SCRATCH
+001     _RETURN_
+002     @SCRATCH
+003     @SCRATCH
+004     @INTERRUPT_AREA
+005     @INTERRUPT_AREA
+006     @INTERRUPT_AREA
+007     @INTERRUPT_AREA
+008     @INTERRUPT_AREA
+009     @INTERRUPT_AREA
+00A     @INTERRUPT_AREA
+00B     @INTERRUPT_AREA
+00C     @INTERRUPT_AREA
+00D     @INTERRUPT_AREA
+00E     @INTERRUPT_AREA
+00F     @INTERRUPT_AREA
+010     @INTERRUPT_AREA
+011     @INTERRUPT_AREA
+012     @INTERRUPT_AREA
+013     @INTERRUPT_AREA
+014     @INTERRUPT_AREA
+015     @INTERRUPT_AREA
+016     @INTERRUPT_AREA
+017     @INTERRUPT_AREA
+018     @INTERRUPT_AREA
+019     @INTERRUPT_AREA
+01A     running
+01B     heating
+01C     hd_xpos
+01D     hd_ypos
+01E     dd_addr
+01F-020 systick
+021     encstate
+022     last_encstate
+023     enc_counts
+024     last_counts
+025-026 btn_counter
+027-028 btn_state
+029-02A one_minute
+02B     minutes
+02C     btn_reset_flag
+02D-040 msg
+041     heating_mins
+042     cooling_mins
+043     setting
+044     last_setting
+045     last_minutes
+046     state
+047-048 @sprintf_string
+049     S_DoHeating.rem_heating
+04A     S_DoCooling.rem_cooling
+04B-058 S_SetCooling.@STRPARAM1
+04B-058 S_SetHeating.@STRPARAM1
+04B     LCD_Cursor.cur_state
+04B-04C S_DoHeating.curr_buttonstate
+04B-04C S_Idle.curr_button_state
+04B-057 S_DoCooling.@STRPARAM1
+04B     @delay_ms1.P1
+04B     GetSettingsFromEEPROM.@SCRATCH1
+04C     LCD_Cursor.@SCRATCH1
+04D-053 S_Idle.@STRPARAM1
+04D-059 S_DoHeating.@STRPARAM1
+054     S_Idle.@SCRATCH1
+055     S_Idle.@SCRATCH2
+056     S_Idle.@SCRATCH3
+057     S_Idle.@SCRATCH4
+058     S_DoCooling.@SCRATCH1
+059     PrintValue.v_to_print
+059     WriteSettingsToEEPROM.new_heating
+059     S_SetHeating.@SCRATCH1
+059     S_SetCooling.@SCRATCH1
+059     S_DoCooling.@SCRATCH2
+05A     SetBacklight.blset
+05A     @PRINTF_U_829.P1
+05A     SetHeating.htr_heatset
+05A     WriteSettingsToEEPROM.new_cooling
+05A     AskResume.option
+05A     SetRunning.htr_runset
+05A     @PSTRINGCN_829.P1
+05A     S_SetHeating.@SCRATCH2
+05A     S_SetCooling.@SCRATCH2
+05A     S_DoHeating.@SCRATCH1
+05A     S_DoCooling.@SCRATCH3
+05B     @delay_ms2.P1
+05B-062 AskResume.@STRPARAM1
+05B     @PRINTF_U_829.P1
+05B     @PSTRINGCN_829.@SCRATCH1
+05B     S_SetHeating.@SCRATCH3
+05B     S_SetCooling.@SCRATCH3
+05B     S_DoHeating.@SCRATCH2
+05B     S_DoCooling.@SCRATCH4
+05C     @DIV88.P1
+05C     @PSTRINGCN_829.@SCRATCH2
+05C     S_SetHeating.@SCRATCH4
+05C     S_SetCooling.@SCRATCH4
+05C     S_DoHeating.@SCRATCH3
+05D     @SPRINTF.P1
+05D     @DIV88.P2
+05D     S_DoHeating.@SCRATCH4
+05E     @DIV88.@SCRATCH1
+063     LCD_Locate.x
+063     Delay_Millis.delay
+063     AskResume.@SCRATCH1
+064     LCD_Locate.y
+064     AskResume.@SCRATCH2
+065-066 LCD_Printf.string
+065     LCD_Locate.addr
+065     AskResume.@SCRATCH3
+066     LCD_Locate.@SCRATCH1
+066     AskResume.@SCRATCH4
+067     LCD_Printf.@SCRATCH1
+068     LCD_Putchar.ch
+069     LCD_ScrollUp.line_pos
+069     LCD_Putchar.@SCRATCH1
+06A     LCD_ScrollUp.line
+06B     LCD_ScrollUp.ch_moving
+06C     LCD_ScrollUp.new_addr
+06D     LCD_PutData.dat
+06D     LCD_Readchar.rc_x
+06D     LCD_ScrollUp.@SCRATCH1
+06E     LCD_Readchar.rc_y
+06E     LCD_PutData.@SCRATCH1
+06F     LCD_Readchar.addr_to_sample
+070     LCD_Read_DDRAM.dd_read_addr
+070     LCD_DDRAM_Addr.dd_x
+071     LCD_Read_DDRAM.dd_data
+071     LCD_DDRAM_Addr.dd_y
+072     LCD_Read_DDRAM.@SCRATCH1
+072     LCD_DDRAM_Addr.@SCRATCH1
+073     LCD_Command.cmd
+074     LCD_IsBusy.busybit
+074     LCD_Input.ch
+074     LCD_Command.@SCRATCH1
+075     LCD_SetRNW.state
+075     LCD_SetE.state
+075     LCD_Output.ch
+075     LCD_SetRS.state
+076     ISR_Ticker.@SCRATCH1
+077     ISR_Ticker.@SCRATCH2
+FB4.6   C1OUT
+FB4.7   C2OUT
+FBB     CCP_2_LOW
+FBB     CCP_2
+FBC     CCP_2_HIGH
+FBE     CCP_1_LOW
+FBE     CCP_1
+FBF     CCP_1_HIGH
+FE1-FE2 @WRITE_PACKED_MEMORY.P1
+FE1-FE2 @READ_PACKED_MEMORY.P2
+FE9-FEA @WRITE_PACKED_MEMORY.P1
+FE9-FEA @READ_PACKED_MEMORY.P2
+FE9-FEA @READ_PROGRAM_MEMORY.P3
+FE9-FEA @WRITE_PROGRAM_MEMORY.P4
+FF6-FF8 @READ_PROGRAM_MEMORY.P1
+FF6-FF8 @WRITE_PROGRAM_MEMORY.P2
+
+ROM Allocation:
+0000AE  hd_map.call
+0000BE  hd_map.data
+0000DE  @const847.call
+0000F6  @const854.call
+00010E  @const859.call
+00012C  @const862.call
+00014A  @const867.call
+000168  @const871.call
+000186  GetEncA
+000194  GetEncB
+0001A2  GetEncBtn
+0001AE  ISR_Ticker
+000284  @const828.call
+000292  @const840.call
+00029E  @const843.call
+0002AC  @const844.call
+0002BA  @const856.call
+0002C0  @const857.call
+0002C8  ServiceInterruptInit
+0002E0  InitTimer2
+0002F2  SetRunning
+000310  SetHeating
+00032C  SetBacklight
+000332  LCD_SetE
+000340  LCD_SetRS
+00034E  LCD_SetRNW
+00035C  LCD_Input
+000394  LCD_IsBusy
+0003E2  LCD_BusyWait
+0003EA  LCD_Output
+00041C  LCD_Command
+00045C  @delay_ms1
+000482  LCD_Init
+0004D0  LCD_DDRAM_Addr
+0004E2  LCD_Locate
+000504  LCD_Clear
+000516  LCD_Cursor
+000524  GetSettingsFromEEPROM
+000556  InitPlatform
+00058E  LCD_Read_DDRAM
+0005DC  LCD_Readchar
+0005F6  LCD_PutData
+000638  LCD_ScrollUp
+0006AC  LCD_Putchar
+000730  LCD_Printf
+00076C  @SPRINTF
+000788  @PSTRINGCN_829
+0007A6  @DIV88
+0007CE  @PRINTF_U_829
+000834  ResetBtnState
+00083E  GetButtonPress
+000874  GetDoorState
+000880  S_Idle
+00095C  PrintValue
+0009B2  @delay_ms2
+0009DA  WriteSettingsToEEPROM
+000A34  CapSetting
+000A58  UpdateSetting
+000A60  S_SetHeating
+000AEA  S_SetCooling
+000B78  Delay_Millis
+000B88  WaitBtnLow
+000B9C  AskResume
+000C40  PrintTimer
+000C9A  S_DoHeating
+000D7E  S_DoCooling
+000E3C  StateMachine
+000E62  @goto36198
+000E86  main
+000E86  @cinit1
+000ED4  @cinit2
+
+Project Directory:
+    /home/jennifer/Dropbox/DevFiles/MPLABXProjects/TumbleTimerRB.X/
+
+Project Files:
+    ../../../../../../main.c (link)                         [16-Apr-24 17:46  CRC=47E3C34A]
+    ../../../../../../opt/picc/devices/18F2455.h            [11-Jan-22 21:50  CRC=0428E7B5]
+    ../../../../../../HD44780.h                             [15-Apr-24 21:08  CRC=40192157]
+    ../../../../../../HD44780.c                             [15-Apr-24 21:05  CRC=AA457610]
+    ../../../../../../hardware.h                            [13-Apr-24 14:03  CRC=B33A9920]
+    ../../../../../../hardware.c                            [28-Jan-22 19:32  CRC=2640CFAF]
+    ../../../../../../ISR_Lib.h                             [15-Apr-24 20:22  CRC=209D2383]
+    ../../../../../../ISR_Lib.c                             [15-Apr-24 20:02  CRC=8325948D]
+
+Source signature=36CEF7D2
+Program memory checksum=0000
+Hex file CRC=FC89
+
+Units:
+    /home/jennifer/Dropbox/DevFiles/MPLABXProjects/TumbleTimerRB.X/main
+
+Compiler Settings:
+    Processor:      PIC18F2455
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+    Case Sensitive: Yes
+    Compile Mode:   CCS5
+
+Output Files:
+    Errors:      dist/default/production/TumbleTimerRB.X.production.err
+    INHX32:      dist/default/production/TumbleTimerRB.X.production.hex
+    Symbols:     dist/default/production/TumbleTimerRB.X.production.sym
+    List:        dist/default/production/TumbleTimerRB.X.production.lst
+    Debug/COFF:  dist/default/production/TumbleTimerRB.X.production.cof
+    Project:     TumbleTimerRB.X.production.ccspjt
+    Call Tree:   dist/default/production/TumbleTimerRB.X.production.tre
+    Statistics:  dist/default/production/TumbleTimerRB.X.production.STA

@@ -1,0 +1,19 @@
+[PROJECT]
+Target=dist/default/debug/TumbleTimerRB.X.debug.hex
+Processor_Text=PIC18F2455
+CCSVersion=5.107
+Compiler=PCH
+
+[Target Data]
+FileList=../../../../../../
+
+[dist/default/debug/TumbleTimerRB.X.debug.c]
+Type=4
+
+[mru-list]
+1=dist/default/debug/TumbleTimerRB.X.debug.c
+
+[Units]
+Count=1
+1=main
+Link=1
