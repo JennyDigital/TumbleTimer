@@ -30,12 +30,12 @@ ifeq ($(TYPE_IMAGE), DEBUG_RUN)
 IMAGE_TYPE=debug
 OUTPUT_SUFFIX=cof
 DEBUGGABLE_SUFFIX=cof
-FINAL_IMAGE=${DISTDIR}/TumbleTimerRB.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+FINAL_IMAGE=${DISTDIR}/TumbleTimerRB.X-git.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 else
 IMAGE_TYPE=production
 OUTPUT_SUFFIX=hex
 DEBUGGABLE_SUFFIX=cof
-FINAL_IMAGE=${DISTDIR}/TumbleTimerRB.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+FINAL_IMAGE=${DISTDIR}/TumbleTimerRB.X-git.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 endif
 
 ifeq ($(COMPARE_BUILD), true)
@@ -82,7 +82,7 @@ FIXDEPS=fixDeps
 ifneq ($(INFORMATION_MESSAGE), )
 	@echo $(INFORMATION_MESSAGE)
 endif
-	${MAKE}  -f nbproject/Makefile-default.mk ${DISTDIR}/TumbleTimerRB.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+	${MAKE}  -f nbproject/Makefile-default.mk ${DISTDIR}/TumbleTimerRB.X-git.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 
 
 
@@ -97,8 +97,8 @@ ${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
 ifeq (2,1) 
 	${MKDIR} ${DISTDIR} 
 	${MP_CC}  out="${OBJECTDIR}"  main.c +FH +EX +DF +CC \#__DEBUG=1 +ICD +Y=9 +EA +DF +LN +T +A +M +J +Z -P \#__18F2455=1 
-	@mv ${OBJECTDIR}/main.cof "${DISTDIR}/TumbleTimerRB.X.${IMAGE_TYPE}.cof" 
-	@mv ${OBJECTDIR}/main.hex "${DISTDIR}/TumbleTimerRB.X.${IMAGE_TYPE}.hex"
+	@mv ${OBJECTDIR}/main.cof "${DISTDIR}/TumbleTimerRB.X-git.${IMAGE_TYPE}.cof" 
+	@mv ${OBJECTDIR}/main.hex "${DISTDIR}/TumbleTimerRB.X-git.${IMAGE_TYPE}.hex"
 else 
 	${MP_CC}  out=""${OBJECTDIR}"" main.c +EXPORT +FH +EX +DF +CC \#__DEBUG=1 +ICD +Y=9 +EA +DF +LN +T +A +M +J +Z -P \#__18F2455=1 +EXPORTD="${OBJECTDIR}"  
 	
@@ -110,8 +110,8 @@ ${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
 ifeq (2,1) 
 	${MKDIR} ${DISTDIR} 
 	${MP_CC}  out="${OBJECTDIR}"  main.c +FH +EX +DF +CC +Y=9 +EA +DF +LN +T +A +M +J +Z -P \#__18F2455=1 
-	@mv ${OBJECTDIR}/main.cof "${DISTDIR}/TumbleTimerRB.X.${IMAGE_TYPE}.cof" 
-	@mv ${OBJECTDIR}/main.hex "${DISTDIR}/TumbleTimerRB.X.${IMAGE_TYPE}.hex"
+	@mv ${OBJECTDIR}/main.cof "${DISTDIR}/TumbleTimerRB.X-git.${IMAGE_TYPE}.cof" 
+	@mv ${OBJECTDIR}/main.hex "${DISTDIR}/TumbleTimerRB.X-git.${IMAGE_TYPE}.hex"
 else 
 	${MP_CC}  out=""${OBJECTDIR}"" main.c +EXPORT +FH +EX +DF +CC +Y=9 +EA +DF +LN +T +A +M +J +Z -P \#__18F2455=1 +EXPORTD="${OBJECTDIR}"  
 	
@@ -122,22 +122,22 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: link
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${DISTDIR}/TumbleTimerRB.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk    
+${DISTDIR}/TumbleTimerRB.X-git.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk    
 	${MKDIR} ${DISTDIR} 
 ifeq (2,1) 
 	
 else 
-	${MP_LD}   out="${DISTDIR}"  +FH +EX +DF +CC LINK=TumbleTimerRB.X.${IMAGE_TYPE}.hex=${OBJECTDIR}/main.o +Y=9 +EA +DF +LN +T +A +M +J +Z -P
+	${MP_LD}   out="${DISTDIR}"  +FH +EX +DF +CC LINK=TumbleTimerRB.X-git.${IMAGE_TYPE}.hex=${OBJECTDIR}/main.o +Y=9 +EA +DF +LN +T +A +M +J +Z -P
 	
 endif 
 	
 else
-${DISTDIR}/TumbleTimerRB.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk   
+${DISTDIR}/TumbleTimerRB.X-git.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk   
 	${MKDIR} ${DISTDIR} 
 ifeq (2,1) 
 	
 else 
-	${MP_LD}   out="${DISTDIR}"  +FH +EX +DF +CC LINK=TumbleTimerRB.X.${IMAGE_TYPE}.hex=${OBJECTDIR}/main.o +Y=9 +EA +DF +LN +T +A +M +J +Z -P
+	${MP_LD}   out="${DISTDIR}"  +FH +EX +DF +CC LINK=TumbleTimerRB.X-git.${IMAGE_TYPE}.hex=${OBJECTDIR}/main.o +Y=9 +EA +DF +LN +T +A +M +J +Z -P
 	
 endif 
 	

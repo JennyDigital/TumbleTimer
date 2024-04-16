@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=TumbleTimerRB.X
+PROJECTNAME=TumbleTimerRB.X-git
 
 # Active Configuration
 DEFAULTCONF=default
