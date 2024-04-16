@@ -1,3 +1,10 @@
+// By Jennifer Gunn (JennyDigital)
+// Built using CCS C
+//
+// This is open-source under the CC Share-Alike with Attribution Licence.
+//
+// This includes the HD44780 driver BTW.
+
 #case
 
 #include <18F2455.h>
