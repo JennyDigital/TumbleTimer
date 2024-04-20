@@ -19,9 +19,10 @@
 
 #include "ISR_Lib.h"
 
-#define HEATING_DEFAULT 25
-#define COOLING_DEFAULT 5
-#define MAX_SETTING     60
+#define HEATING_DEFAULT     25
+#define COOLING_DEFAULT     5
+#define MAX_SETTING         60
+#define ANIM_RELOAD_VALUE   225
 
 #if (MAX_SETTING < HEATING_DEFAULT)
 #error "Cannot set heating default higher than max setting."
@@ -35,12 +36,54 @@ int                 last_setting = 255;
 
 unsigned int        last_minutes;
 
+char heating_symbol[] =
+                { 
+                      0b10010,
+                      0b01001,
+                      0b01001,
+                      0b10010,
+                      0b10010,
+                      0b01001,
+                      0b01001,
+                      0b10010,
+                      
+                      0b01010,
+                      0b01010,
+                      0b01010,
+                      0b01010,
+                      0b01010,
+                      0b01010,
+                      0b01010,
+                      0b01010,
+                      
+                      0b01001,
+                      0b10010,
+                      0b10010,
+                      0b01001,
+                      0b01001,      
+                      0b10010,
+                      0b10010,
+                      0b01001,
+                      
+                      0b01010,
+                      0b01010,
+                      0b01010,
+                      0b01010,
+                      0b01010,
+                      0b01010,
+                      0b01010,
+                      0b01010
+                };
+                      
+
 enum states { s_idle, s_setting_heating, s_setting_cooling, s_heating, s_cooling };
 enum states state;
 
 
 void WriteSettingsToEEPROM( int new_heating, int new_cooling );
 void GetSettingsFromEEPROM( void );
+void AnimRunning( void );
+void SetAnimChars( void );
 
 void InitPlatform( void )
 {
@@ -60,6 +103,33 @@ void InitPlatform( void )
     LCD_Clear();     
     
    GetSettingsFromEEPROM();
+   SetAnimChars();
+}
+
+
+void SetAnimChars( void )
+{
+    LCD_Defchar( 0,   &heating_symbol );
+    LCD_Defchar( 1, ( &heating_symbol ) + 8 );
+    LCD_Defchar( 2, ( &heating_symbol ) + 16 );
+    LCD_Defchar( 3, ( &heating_symbol ) + 24 );
+
+
+}
+
+
+void AnimRunning( void )
+{
+    static char runner = 0;
+    
+    if( !anim_timer )
+    {
+        runner = ( ++runner % 3 );
+        anim_timer = ANIM_RELOAD_VALUE;
+        
+        LCD_Locate( 15 , 0 );
+        LCD_Putchar( runner );
+    }
 }
 
 
@@ -303,6 +373,8 @@ void S_DoHeating( void )
     
     while( state == s_heating )
     {
+        AnimRunning();
+        
         if( minutes != last_minutes )
         {
             PrintTimer();
