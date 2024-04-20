@@ -24,6 +24,8 @@ static void ISR_Ticker( void )
     *
     */
   	if( systick > 0 ) systick--;
+    
+    if( anim_timer > 0 ) anim_timer--;
 
     
 /** Update encoder state
