@@ -14,19 +14,20 @@
 #define BTN_LONGPRESSED     1000
 
 
-volatile unsigned long int  systick=0;
-volatile unsigned int       encstate = 0,
-                            last_encstate = encstate;
+volatile unsigned long int  systick         = 0,
+                            anim_timer      = 0;
+volatile unsigned int       encstate        = 0,
+                            last_encstate   = encstate;
 
-volatile signed int         enc_counts=0,
-                            last_counts = 0;
+volatile signed int         enc_counts      = 0,
+                            last_counts     = 0;
 
-volatile unsigned long int  btn_counter = BTN_OPEN,
-                            btn_state   = BTN_OPEN;
+volatile unsigned long int  btn_counter     = BTN_OPEN,
+                            btn_state       = BTN_OPEN;
 
-volatile unsigned long int  one_minute = 0;
-volatile unsigned int       minutes = 0,
-                            btn_reset_flag = 0;
+volatile unsigned long int  one_minute      = 0;
+volatile unsigned int       minutes         = 0,
+                            btn_reset_flag  = 0;
 
 
 void ISR_Ticker( void );
