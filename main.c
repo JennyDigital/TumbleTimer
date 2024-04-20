@@ -16,13 +16,13 @@
 
 #include "HD44780.h"
 #include "hardware.h"
-
+#include "UDG_Symbols.h"
 #include "ISR_Lib.h"
 
 #define HEATING_DEFAULT     25
 #define COOLING_DEFAULT     5
 #define MAX_SETTING         60
-#define ANIM_RELOAD_VALUE   225
+#define ANIM_RELOAD_VALUE   275
 
 #if (MAX_SETTING < HEATING_DEFAULT)
 #error "Cannot set heating default higher than max setting."
@@ -35,45 +35,6 @@ int                 setting  = 0;
 int                 last_setting = 255;
 
 unsigned int        last_minutes;
-
-char heating_symbol[] =
-                { 
-                      0b10010,
-                      0b01001,
-                      0b01001,
-                      0b10010,
-                      0b10010,
-                      0b01001,
-                      0b01001,
-                      0b10010,
-                      
-                      0b01010,
-                      0b01010,
-                      0b01010,
-                      0b01010,
-                      0b01010,
-                      0b01010,
-                      0b01010,
-                      0b01010,
-                      
-                      0b01001,
-                      0b10010,
-                      0b10010,
-                      0b01001,
-                      0b01001,      
-                      0b10010,
-                      0b10010,
-                      0b01001,
-                      
-                      0b01010,
-                      0b01010,
-                      0b01010,
-                      0b01010,
-                      0b01010,
-                      0b01010,
-                      0b01010,
-                      0b01010
-                };
                       
 
 enum states { s_idle, s_setting_heating, s_setting_cooling, s_heating, s_cooling };
@@ -83,7 +44,9 @@ enum states state;
 void WriteSettingsToEEPROM( int new_heating, int new_cooling );
 void GetSettingsFromEEPROM( void );
 void AnimRunning( void );
-void SetAnimChars( void );
+void SetAnimCharsHeating( void );
+void SetAnimCharsCooling( void );
+
 
 void InitPlatform( void )
 {
@@ -103,18 +66,23 @@ void InitPlatform( void )
     LCD_Clear();     
     
    GetSettingsFromEEPROM();
-   SetAnimChars();
 }
 
 
-void SetAnimChars( void )
+void SetAnimCharsHeating( void )
 {
     LCD_Defchar( 0,   &heating_symbol );
     LCD_Defchar( 1, ( &heating_symbol ) + 8 );
     LCD_Defchar( 2, ( &heating_symbol ) + 16 );
     LCD_Defchar( 3, ( &heating_symbol ) + 24 );
+}
 
-
+void SetAnimCharsCooling( void )
+{
+    LCD_Defchar( 0,   &cooling_symbol );
+    LCD_Defchar( 1, ( &cooling_symbol ) + 8 );
+    LCD_Defchar( 2, ( &cooling_symbol ) + 16 );
+    LCD_Defchar( 3, ( &cooling_symbol ) + 24 );
 }
 
 
@@ -329,6 +297,8 @@ void S_DoHeating( void )
     unsigned long int curr_buttonstate;
     last_minutes = MAX_SETTING + 1;
     
+    SetAnimCharsHeating();
+    
     if ( GetDoorState() == DOOR_OPEN )
     {
         state=s_idle;
@@ -408,6 +378,7 @@ void S_DoCooling( void )
 {
     static int rem_cooling;
     
+    SetAnimCharsCooling();
     last_minutes = MAX_SETTING + 1;
     
     SetBacklight( BL_HIGH );
@@ -433,6 +404,7 @@ void S_DoCooling( void )
     
     while( state == s_cooling )
     {
+        AnimRunning();
         if( minutes != last_minutes ) PrintTimer();
         
         if(
