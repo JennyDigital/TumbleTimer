@@ -1,7 +1,7 @@
 // By Jennifer Gunn (JennyDigital)
 // Built using CCS C
 //
-// This is open-source under the CC Share-Alike with Attribution Licence.
+// This is open-source under the CC Share-Alike with Attribution License.
 //
 // This includes the HD44780 driver BTW.
 
@@ -23,6 +23,9 @@
 #define COOLING_DEFAULT 5
 #define MAX_SETTING     60
 
+#if (MAX_SETTING < HEATING_DEFAULT)
+#error "Cannot set heating default higher than max setting."
+#endif
 
 char                msg[ 20 ];
 int                 heating_mins; // = HEATING_DEFAULT;
@@ -397,6 +400,8 @@ void WriteSettingsToEEPROM( int new_heating, int new_cooling )
 {
     write_eeprom( 0, new_heating );
     write_eeprom( 1, new_cooling );
+    write_eeprom( 2, new_heating ^ 255 );
+    write_eeprom( 3, new_cooling ^ 255 );   
     delay_ms( 10 );
 
 }
@@ -404,8 +409,24 @@ void WriteSettingsToEEPROM( int new_heating, int new_cooling )
 
 void GetSettingsFromEEPROM( void )
 {
+    int chk_heating, chk_cooling;
+    
     heating_mins    = read_eeprom( 0 );
-    cooling_mins    = read_eeprom( 1 );
+    cooling_mins    = read_eeprom( 1 );    
+    chk_heating     = read_eeprom( 2 ) ^ 255;
+    chk_cooling     = read_eeprom( 3 ) ^ 255;
+
+    if(
+            ( chk_heating != heating_mins ) |
+            ( chk_cooling != cooling_mins )
+      )
+    { 
+        heating_mins = HEATING_DEFAULT;
+        cooling_mins = COOLING_DEFAULT;
+        WriteSettingsToEEPROM( heating_mins, cooling_mins );
+    }
+    
+    
 }
 
 
