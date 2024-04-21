@@ -22,7 +22,7 @@
 #define HEATING_DEFAULT     25
 #define COOLING_DEFAULT     5
 #define MAX_SETTING         60
-#define ANIM_RELOAD_VALUE   275
+#define ANIM_RELOAD_VALUE   350
 
 #if (MAX_SETTING < HEATING_DEFAULT)
 #error "Cannot set heating default higher than max setting."

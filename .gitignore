@@ -17,6 +17,7 @@
 *.properties
 *.production
 *.debug
+*.err
 html/
 nbproject/private/
 nbproject/Package-*.bash
