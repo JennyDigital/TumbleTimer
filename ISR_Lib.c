@@ -1,5 +1,4 @@
-#case
-#use delay (clock=8MHZ)
+#include "projectsetup.h"
 #include "hardware.h"
 #include "ISR_Lib.h"
 

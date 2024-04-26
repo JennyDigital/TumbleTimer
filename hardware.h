@@ -1,4 +1,4 @@
-#case
+//#case
 //#include <18F2455.h>
 
 //#fuses PUT, INTRC_IO, NOWDT, NOPROTECT, NOLVP
@@ -8,6 +8,8 @@
 
 #ifndef HARDWARE_H
 #define	HARDWARE_H
+
+#include "projectsetup.h"
 
 // Feature Outputs
     

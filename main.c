@@ -5,15 +5,7 @@
 //
 // This includes the HD44780 driver BTW.
 
-#case
-
-#include <18F2455.h>
-
-#fuses PUT, INTRC_IO, NOWDT, NOPROTECT, NOLVP
-
-#USE DELAY ( CLOCK = 8M )
-#device PASS_STRINGS = IN_RAM
-
+#include "projectsetup.h"
 #include "HD44780.h"
 #include "hardware.h"
 #include "UDG_Symbols.h"

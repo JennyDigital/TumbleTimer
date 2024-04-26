@@ -1,6 +1,7 @@
-#case
 #ifndef ISR_LIB_H
 #define ISR_LIB_H
+
+#include "projectsetup.h"
 
 #define ONE_MIN_C   59999       // The normal timing value.
 //#define ONE_MIN_C   3000      // This is for testing purposes only

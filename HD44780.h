@@ -1,7 +1,6 @@
-#case
-//#include "hardware.h"
 #ifndef HD44780_H
 #define HD44780_H
+#include "projectsetup.h"
 
 /** ----------------------------------------------------------+ 
   * User configuration section.                               !
