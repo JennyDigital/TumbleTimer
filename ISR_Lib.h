@@ -1,7 +1,7 @@
+#include "hardware.h"
+
 #ifndef ISR_LIB_H
 #define ISR_LIB_H
-
-#include "projectsetup.h"
 
 #define ONE_MIN_C   59999       // The normal timing value.
 //#define ONE_MIN_C   3000      // This is for testing purposes only
@@ -31,12 +31,12 @@ volatile unsigned int       minutes         = 0,
                             btn_reset_flag  = 0;
 
 
-void ISR_Ticker( void );
-void ServiceInterruptInit( void );
-void Delay_Millis(unsigned int delay);
-void WaitBtnLow( void );
-unsigned long int GetButtonPress( void );
-void ResetBtnState( void );
+void                ISR_Ticker              ( void );
+void                ServiceInterruptInit    ( void );
+void                Delay_Millis            ( unsigned int delay );
+void                WaitBtnLow              ( void );
+unsigned long int   GetButtonPress          ( void );
+void                ResetBtnState           ( void );
 
 #include "ISR_Lib.c"
 #endif
