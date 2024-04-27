@@ -1,4 +1,3 @@
-#case
 void SetBacklight( int blset )
 {
     //output_bit( BL_PIN, blset );

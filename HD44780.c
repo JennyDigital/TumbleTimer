@@ -1,4 +1,3 @@
-#case
 #include "hardware.h"
 
 /** HD44780 system variables

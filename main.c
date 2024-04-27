@@ -5,11 +5,11 @@
 //
 // This includes the HD44780 driver BTW.
 
-#include "projectsetup.h"
-#include "HD44780.h"
+
 #include "hardware.h"
-#include "UDG_Symbols.h"
 #include "ISR_Lib.h"
+#include "HD44780.h"
+#include "UDG_Symbols.h"
 
 #define HEATING_DEFAULT     25
 #define COOLING_DEFAULT     5
