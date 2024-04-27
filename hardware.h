@@ -47,6 +47,12 @@
 #define DOOR_CLOSED 0
 
 
+// Relay States
+
+#define RELAY_OFF   0
+#define RELAY_ON    1
+
+
 // Display pins are defined in the HD4470.h file #INCLUDEed below.
 #include "HD44780.h"    
  

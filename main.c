@@ -190,8 +190,8 @@ void S_Idle( void )
     sprintf( msg, "C: %u  ", cooling_mins );
     LCD_Printf( msg );
 
-    SetHeating( 0 );
-    SetRunning( 0 );
+    SetHeating( RELAY_OFF );
+    SetRunning( RELAY_OFF );
 
     minutes = 0;
     one_minute = 0;
@@ -219,8 +219,8 @@ void S_SetHeating( void )
     SetBacklight( BL_HIGH );
     LCD_Clear();
     LCD_Printf( "Heating Time:" );
-    SetRunning( 0 );
-    SetHeating( 0 );
+    SetRunning( RELAY_OFF );
+    SetHeating( RELAY_OFF );
     setting = heating_mins;
     last_setting = 255;
     enc_counts = last_counts = setting;
@@ -253,8 +253,8 @@ void S_SetCooling( void )
     SetBacklight( BL_HIGH );
     LCD_Clear();
     LCD_Printf( "Cooling Time:" );
-    SetRunning( 0 );
-    SetHeating( 0 );
+    SetRunning( RELAY_OFF );
+    SetHeating( RELAY_OFF );
     setting = cooling_mins;
     last_setting = 255;
     enc_counts = last_counts = setting;
@@ -329,8 +329,8 @@ void S_DoHeating( void )
     
     if( heating_mins != 0 )
     {
-        SetRunning( 1 );
-        SetHeating( 1 );
+        SetRunning( RELAY_ON );
+        SetHeating( RELAY_ON );
     }
     
     while( state == s_heating )
@@ -353,8 +353,8 @@ void S_DoHeating( void )
             minutes = 0;
             one_minute = 0;
             
-            SetHeating( 0 );
-            SetRunning( 0 );
+            SetHeating( RELAY_OFF );
+            SetRunning( RELAY_OFF );
         }
         else if( minutes == 0 || ( curr_buttonstate == BTN_PRESSED ) )
         {
@@ -378,8 +378,8 @@ void S_DoCooling( void )
     LCD_Printf( "Now cooling." );
     if( cooling_mins != 0 )
     {
-        SetRunning( 1 );
-        SetHeating( 0 );
+        SetRunning( RELAY_ON );
+        SetHeating( RELAY_OFF );
     }
     
     if( rem_cooling )
@@ -413,8 +413,8 @@ void S_DoCooling( void )
             minutes = 0;
             one_minute = 0;
             
-            SetHeating( 0 );
-            SetRunning( 0 );
+            SetHeating( RELAY_OFF );
+            SetRunning( RELAY_OFF );
         }
         
         if( minutes == 0 )
@@ -424,8 +424,8 @@ void S_DoCooling( void )
             minutes = 0;
             one_minute = 0;
             
-            SetHeating( 0 );
-            SetRunning( 0 );
+            SetHeating( RELAY_OFF );
+            SetRunning( RELAY_OFF );
         }
     }
     
