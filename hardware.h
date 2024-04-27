@@ -1,15 +1,19 @@
-//#case
-//#include <18F2455.h>
+#case
 
-//#fuses PUT, INTRC_IO, NOWDT, NOPROTECT, NOLVP
-//
-//#USE DELAY ( CLOCK = 8M )
-//#device PASS_STRINGS = IN_RAM
+#ignore_warnings 225,238
+#device PIC18F2455
+
+#include <18F2455.h>
+
+#fuses PUT, INTRC_IO, NOWDT, NOPROTECT, NOBROWNOUT
+
+#USE DELAY ( CLOCK = 8M )
+#device PASS_STRINGS = IN_RAM
+
+#ignore_warnings NONE
 
 #ifndef HARDWARE_H
 #define	HARDWARE_H
-
-#include "projectsetup.h"
 
 // Feature Outputs
     
@@ -51,14 +55,14 @@
 int running = 0;
 int heating = 0;
     
-    void SetBacklight( int blset );
-    void SetRunning( int htr_runset );
-    void SetHeating( int htr_heatset );
-    short GetEncA( void );
-    short GetEncB( void );
-    short GetEncBtn( void );
-    short GetDoorState( void );
-    void InitTimer2( void );
+void    SetBacklight    ( int blset );
+void    SetRunning      ( int htr_runset );
+void    SetHeating      ( int htr_heatset );
+short   GetEncA         ( void );
+short   GetEncB         ( void );
+short   GetEncBtn       ( void );
+short   GetDoorState    ( void );
+void    InitTimer2      ( void );
     
 
     
