@@ -1,6 +1,6 @@
+#include "hardware.h"
 #ifndef HD44780_H
 #define HD44780_H
-#include "projectsetup.h"
 
 /** ----------------------------------------------------------+ 
   * User configuration section.                               !
@@ -312,47 +312,48 @@ char vfd_intensity = VFD100;
   
 // Hardware Functions
 //
-void LCD_SetRS( char state );
-void LCD_SetRNW( char state );
-void LCD_SetE( char state );
-char LCD_Input( void );
-void LCD_Output( char ch );
-char LCD_IsBusy( void );
+void LCD_SetRS          ( char state );
+void LCD_SetRNW         ( char state );
+void LCD_SetE           ( char state );
+char LCD_Input          ( void );
+void LCD_Output         ( char ch );
+char LCD_IsBusy         ( void );
 
 // System Control
 //
-void LCD_Command( char cmd );
-void LCD_BusyWait( void );
-void LCD_Init( void );
-void LCD_Locate( char x, char y );
-void LCD_Cursor( char cur_state );
+void LCD_Command        ( char cmd );
+void LCD_BusyWait       ( void );
+void LCD_Init           ( void );
+void LCD_Locate         ( char x, char y );
+void LCD_Cursor         ( char cur_state );
 
 // IO Functions.
 //
-char LCD_Read_DDRAM( char dd_read_addr );
-void LCD_PutData( char dat );
-char LCD_DDRAM_Addr( char dd_x, char dd_y );
-char LCD_Putchar( char ch );
+char LCD_Read_DDRAM     ( char dd_read_addr );
+void LCD_PutData        ( char dat );
+char LCD_DDRAM_Addr     ( char dd_x, char dd_y );
+char LCD_Putchar        ( char ch );
+void LCD_Printf         ( char * string );
+void LCD_Clear          ( void );
 
+// Extra functions
+//
 #ifdef LCD_READCHAR_SUPPORT
-char LCD_Readchar( char rc_x, char rc_y );
+char LCD_Readchar       ( char rc_x, char rc_y );
 #endif
 
-void LCD_Printf( char * string );
-void LCD_Clear( void );
-
 #ifdef LCD_UDG_SUPPORT
-void LCD_Defchar( char ChToSet, char * ChDataset );
+void LCD_Defchar        ( char ChToSet, char * ChDataset );
 #endif
 
 #ifdef LCD_SCROLL_SUPPORT
-void LCD_ScrollUp( void );
+void LCD_ScrollUp       ( void );
 #endif
 
 // VFD Specific
 //
 #ifdef HD_ISVFD
-void LCD_VFD_Intensity( char intensity );
+void LCD_VFD_Intensity  ( char intensity );
 #endif
 
 #include "HD44780.c"
