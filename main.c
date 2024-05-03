@@ -16,7 +16,7 @@
 #define MAX_SETTING         60
 #define ANIM_RELOAD_VALUE   350
 
-#if (MAX_SETTING < HEATING_DEFAULT)
+#if ( MAX_SETTING < HEATING_DEFAULT )
 #error "Cannot set heating default higher than max setting."
 #endif
 
@@ -33,11 +33,11 @@ enum states { s_idle, s_setting_heating, s_setting_cooling, s_heating, s_cooling
 enum states state;
 
 
-void WriteSettingsToEEPROM( int new_heating, int new_cooling );
-void GetSettingsFromEEPROM( void );
-void AnimRunning( void );
-void SetAnimCharsHeating( void );
-void SetAnimCharsCooling( void );
+void WriteSettingsToEEPROM  ( int new_heating, int new_cooling );
+void GetSettingsFromEEPROM  ( void );
+void AnimRunning            ( void );
+void SetAnimCharsHeating    ( void );
+void SetAnimCharsCooling    ( void );
 
 
 void InitPlatform( void )
