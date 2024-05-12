@@ -125,7 +125,7 @@ void PrintTimer( void )
 }
 
 
-void PrintValue( int v_to_print )
+void PrintValue( unsigned int v_to_print )
 {
     LCD_Locate( 0, 1 );
     if( v_to_print > 1 )
@@ -183,11 +183,11 @@ void S_Idle( void )
     LCD_Printf( "Idle\n\r" );
     
     LCD_Locate( 0, 1 );
-    sprintf( msg, "H: %u", heating_mins );
+    sprintf( msg, "H: %u", (unsigned int) heating_mins );
     LCD_Printf( msg );
     
     LCD_Locate( 7, 1 );
-    sprintf( msg, "C: %u  ", cooling_mins );
+    sprintf( msg, "C: %u  ", (unsigned int) cooling_mins );
     LCD_Printf( msg );
 
     SetHeating( RELAY_OFF );
@@ -225,13 +225,13 @@ void S_SetHeating( void )
     last_setting = 255;
     enc_counts = last_counts = setting;
     
-    PrintValue( setting );
+    PrintValue( (unsigned int) setting );
     
     while( state == s_setting_heating )
     {
         if( setting != last_setting )
         {
-            PrintValue( setting );
+            PrintValue( (unsigned int) setting );
             last_setting = setting;
         }
         
@@ -259,13 +259,13 @@ void S_SetCooling( void )
     last_setting = 255;
     enc_counts = last_counts = setting;
     
-    PrintValue( setting );
+    PrintValue( (unsigned int) setting );
     
     while( state == s_setting_cooling )
     {
         if( setting != last_setting )
         {
-            PrintValue( setting );
+            PrintValue( (unsigned int) setting );
             last_setting = setting;
         }
 

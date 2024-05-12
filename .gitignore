@@ -18,6 +18,7 @@
 *.production
 *.debug
 *.err
+*cppcheck*
 html/
 nbproject/private/
 nbproject/Package-*.bash

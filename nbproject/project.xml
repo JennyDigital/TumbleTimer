@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>TumbleTimerRB</name>
+            <name>TumbleTimer</name>
             <creation-uuid>fefc42f5-20fe-4355-8ba3-df4b3b1476b2</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>
