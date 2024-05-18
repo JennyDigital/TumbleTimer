@@ -33,35 +33,50 @@ enum states { s_idle, s_setting_heating, s_setting_cooling, s_heating, s_cooling
 enum states state;
 
 
-void WriteSettingsToEEPROM  ( int new_heating, int new_cooling );
-void GetSettingsFromEEPROM  ( void );
-void AnimRunning            ( void );
-void SetAnimCharsHeating    ( void );
-void SetAnimCharsCooling    ( void );
+void writeSettingsToEEPROM  ( int new_heating, int new_cooling );
+void readSettingsFromEEPROM ( void );
+void animRunning            ( void );
+void setAnimCharsHeating    ( void );
+void setAnimCharsCooling    ( void );
+void setAnimCharsHeating    ( void );
+void setAnimCharsCooling    ( void );
+void initPlatform           ( void );
+void capSetting             ( void );
+void printTimer             ( void );
+void printValue             ( unsigned int v_to_print );
+int  askResume              ( void );
+void updateSetting          ( void );
+
+void state_Idle             ( void );
+void state_SetHeating       ( void );
+void state_SetCooling       ( void );
+void state_DoHeating        ( void );
 
 
-void InitPlatform( void )
+
+
+void initPlatform( void )
 {
     setup_oscillator( OSC_8MHZ );
     
-    ServiceInterruptInit();
+    serviceInterruptInit();
     systick=1000;
     
-    InitTimer2();
+    initTimer2();
     setup_ccp1( CCP_PWM );
-    SetRunning( 0 );
-    SetHeating( 0 );
-    SetBacklight( BL_LOW );
+    setRunning( 0 );
+    setHeating( 0 );
+    setBacklight( BL_LOW );
     LCD_Init();
     LCD_Clear();
     LCD_Cursor( 0 );
     LCD_Clear();     
     
-   GetSettingsFromEEPROM();
+   readSettingsFromEEPROM();
 }
 
 
-void SetAnimCharsHeating( void )
+void setAnimCharsHeating( void )
 {
     LCD_Defchar( 0,   &heating_symbol );
     LCD_Defchar( 1, ( &heating_symbol ) + 8 );
@@ -69,7 +84,7 @@ void SetAnimCharsHeating( void )
     LCD_Defchar( 3, ( &heating_symbol ) + 24 );
 }
 
-void SetAnimCharsCooling( void )
+void setAnimCharsCooling( void )
 {
     LCD_Defchar( 0,   &cooling_symbol );
     LCD_Defchar( 1, ( &cooling_symbol ) + 8 );
@@ -78,7 +93,7 @@ void SetAnimCharsCooling( void )
 }
 
 
-void AnimRunning( void )
+void animRunning( void )
 {
     static char runner = 0;
     
@@ -93,7 +108,7 @@ void AnimRunning( void )
 }
 
 
-void CapSetting( void )
+void capSetting( void )
 {
     disable_interrupts(GLOBAL);
     
@@ -111,7 +126,7 @@ void CapSetting( void )
 }
 
 
-void PrintTimer( void )
+void printTimer( void )
 {
     LCD_Locate( 0, 1 );
     if(minutes > 1 )
@@ -119,24 +134,24 @@ void PrintTimer( void )
     else 
          sprintf( msg, "%u minute  ", minutes );
 
-    LCD_Printf( msg );
+    LCD_Print( msg );
     
     last_minutes = minutes; 
 }
 
 
-void PrintValue( unsigned int v_to_print )
+void printValue( unsigned int v_to_print )
 {
     LCD_Locate( 0, 1 );
     if( v_to_print > 1 )
         sprintf( msg, "%u minutes  ", v_to_print );
     else 
         sprintf( msg, "%u minute   ", v_to_print );
-    LCD_Printf( msg );
+    LCD_Print( msg );
 }
 
 
-int AskResume( void )
+int askResume( void )
 {
     signed int option;
     
@@ -145,63 +160,63 @@ int AskResume( void )
     
     LCD_Clear();
     LCD_Locate( 0, 0 );
-    LCD_Printf("Resume?");
+    LCD_Print("Resume?");
     
-    WaitBtnLow();
+    waitBtnLow();
 
-    ResetBtnState();
+    resetBtnState();
     
-    while( GetButtonPress() == BTN_OPEN )
+    while( getButtonPress() == BTN_OPEN )
     {
         option = ( enc_counts & 1);
         
         LCD_Locate( 0,1 );
         if( option )
-            LCD_Printf("Yes");
+            LCD_Print("Yes");
         else
-            LCD_Printf("No ");
+            LCD_Print("No ");
     }
     
-    while( GetButtonPress() != BTN_OPEN );
+    while( getButtonPress() != BTN_OPEN );
     return option;
 }
 
 
-void UpdateSetting( void )
+void updateSetting( void )
 {
-    CapSetting();
+    capSetting();
     setting = enc_counts;
 }
 
 
-void S_Idle( void )
+void state_Idle( void )
 {
     unsigned long int curr_button_state;
     
-    SetBacklight( BL_LOW );
+    setBacklight( BL_LOW );
     LCD_Clear();
-    LCD_Printf( "Idle\n\r" );
+    LCD_Print( "Idle\n\r" );
     
     LCD_Locate( 0, 1 );
     sprintf( msg, "H: %u", (unsigned int) heating_mins );
-    LCD_Printf( msg );
+    LCD_Print( msg );
     
     LCD_Locate( 7, 1 );
     sprintf( msg, "C: %u  ", (unsigned int) cooling_mins );
-    LCD_Printf( msg );
+    LCD_Print( msg );
 
-    SetHeating( RELAY_OFF );
-    SetRunning( RELAY_OFF );
+    setHeating( RELAY_OFF );
+    setRunning( RELAY_OFF );
 
     minutes = 0;
     one_minute = 0;
     
     while(state == s_idle )
     {        
-        curr_button_state = GetButtonPress();
+        curr_button_state = getButtonPress();
         if(
             ( curr_button_state == BTN_LONGPRESSED ) &&
-            ( GetDoorState() == DOOR_CLOSED )
+            ( getDoorState() == DOOR_CLOSED )
           )
         {
             state = s_heating;
@@ -214,84 +229,84 @@ void S_Idle( void )
     }
 }
 
-void S_SetHeating( void )
+void state_SetHeating( void )
 {
-    SetBacklight( BL_HIGH );
+    setBacklight( BL_HIGH );
     LCD_Clear();
-    LCD_Printf( "Heating Time:" );
-    SetRunning( RELAY_OFF );
-    SetHeating( RELAY_OFF );
+    LCD_Print( "Heating Time:" );
+    setRunning( RELAY_OFF );
+    setHeating( RELAY_OFF );
     setting = heating_mins;
     last_setting = 255;
     enc_counts = last_counts = setting;
     
-    PrintValue( (unsigned int) setting );
+    printValue( (unsigned int) setting );
     
     while( state == s_setting_heating )
     {
         if( setting != last_setting )
         {
-            PrintValue( (unsigned int) setting );
+            printValue( (unsigned int) setting );
             last_setting = setting;
         }
         
-        if(  GetButtonPress() == BTN_PRESSED )
+        if(  getButtonPress() == BTN_PRESSED )
         {
             heating_mins = setting;
             state = s_setting_cooling;
-            WriteSettingsToEEPROM( heating_mins, cooling_mins );
+            writeSettingsToEEPROM( heating_mins, cooling_mins );
         }
         
-        UpdateSetting();
+        updateSetting();
     }
     
 }
 
-void S_SetCooling( void )
+void state_SetCooling( void )
 {
     
-    SetBacklight( BL_HIGH );
+    setBacklight( BL_HIGH );
     LCD_Clear();
-    LCD_Printf( "Cooling Time:" );
-    SetRunning( RELAY_OFF );
-    SetHeating( RELAY_OFF );
+    LCD_Print( "Cooling Time:" );
+    setRunning( RELAY_OFF );
+    setHeating( RELAY_OFF );
     setting = cooling_mins;
     last_setting = 255;
     enc_counts = last_counts = setting;
     
-    PrintValue( (unsigned int) setting );
+    printValue( (unsigned int) setting );
     
     while( state == s_setting_cooling )
     {
         if( setting != last_setting )
         {
-            PrintValue( (unsigned int) setting );
+            printValue( (unsigned int) setting );
             last_setting = setting;
         }
 
-        if( GetButtonPress() == BTN_PRESSED )
+        if( getButtonPress() == BTN_PRESSED )
         {
             cooling_mins = setting;
             state = s_idle;
-            WriteSettingsToEEPROM( heating_mins, cooling_mins );
+            writeSettingsToEEPROM( heating_mins, cooling_mins );
         }
         
-        UpdateSetting();
+        updateSetting();
     }
     
     
 }
 
-void S_DoHeating( void )
+void state_DoHeating( void )
 {
     static int rem_heating = 0;
     
     unsigned long int curr_buttonstate;
     last_minutes = MAX_SETTING + 1;
     
-    SetAnimCharsHeating();
+    setAnimCharsHeating();
     
-    if ( GetDoorState() == DOOR_OPEN )
+    if ( getDoorState() == DOOR_OPEN )
     {
         state=s_idle;
         return;
@@ -300,7 +315,7 @@ void S_DoHeating( void )
     one_minute = ONE_MIN_C;
     if( ( rem_heating > 0 ) && ( rem_heating < heating_mins ) )
     {
-        if( AskResume() )
+        if( askResume() )
         {
             minutes = rem_heating;
         }
@@ -321,31 +336,31 @@ void S_DoHeating( void )
         return;
     }
     
-    SetBacklight( BL_HIGH );
+    setBacklight( BL_HIGH );
     LCD_Clear();
-    LCD_Printf( "Now heating." );
+    LCD_Print( "Now heating." );
  
-    WaitBtnLow();   
+    waitBtnLow();   
     
     if( heating_mins != 0 )
     {
-        SetRunning( RELAY_ON );
-        SetHeating( RELAY_ON );
+        setRunning( RELAY_ON );
+        setHeating( RELAY_ON );
     }
     
     while( state == s_heating )
     {
-        AnimRunning();
+        animRunning();
         
         if( minutes != last_minutes )
         {
-            PrintTimer();
+            printTimer();
             rem_heating = minutes;
         }
         
-        curr_buttonstate = GetButtonPress();
+        curr_buttonstate = getButtonPress();
         
-        if( GetDoorState() == DOOR_OPEN )
+        if( getDoorState() == DOOR_OPEN )
         {
             state = s_idle;
     
@@ -353,8 +368,8 @@ void S_DoHeating( void )
             minutes = 0;
             one_minute = 0;
             
-            SetHeating( RELAY_OFF );
-            SetRunning( RELAY_OFF );
+            setHeating( RELAY_OFF );
+            setRunning( RELAY_OFF );
         }
         else if( minutes == 0 || ( curr_buttonstate == BTN_PRESSED ) )
         {
@@ -370,16 +385,16 @@ void S_DoCooling( void )
 {
     static int rem_cooling;
     
-    SetAnimCharsCooling();
+    setAnimCharsCooling();
     last_minutes = MAX_SETTING + 1;
     
-    SetBacklight( BL_HIGH );
+    setBacklight( BL_HIGH );
     LCD_Clear();
-    LCD_Printf( "Now cooling." );
+    LCD_Print( "Now cooling." );
     if( cooling_mins != 0 )
     {
-        SetRunning( RELAY_ON );
-        SetHeating( RELAY_OFF );
+        setRunning( RELAY_ON );
+        setHeating( RELAY_OFF );
     }
     
     if( rem_cooling )
@@ -396,12 +411,12 @@ void S_DoCooling( void )
     
     while( state == s_cooling )
     {
-        AnimRunning();
-        if( minutes != last_minutes ) PrintTimer();
+        animRunning();
+        if( minutes != last_minutes ) printTimer();
         
         if(
-            (  GetButtonPress() == BTN_PRESSED ) ||
-            ( GetDoorState() == DOOR_OPEN ) 
+            (  getButtonPress() == BTN_PRESSED ) ||
+            ( getDoorState() == DOOR_OPEN ) 
           )
         {
             state = s_idle;
@@ -413,8 +428,8 @@ void S_DoCooling( void )
             minutes = 0;
             one_minute = 0;
             
-            SetHeating( RELAY_OFF );
-            SetRunning( RELAY_OFF );
+            setHeating( RELAY_OFF );
+            setRunning( RELAY_OFF );
         }
         
         if( minutes == 0 )
@@ -424,15 +439,15 @@ void S_DoCooling( void )
             minutes = 0;
             one_minute = 0;
             
-            SetHeating( RELAY_OFF );
-            SetRunning( RELAY_OFF );
+            setHeating( RELAY_OFF );
+            setRunning( RELAY_OFF );
         }
     }
     
 }
 
 
-void WriteSettingsToEEPROM( int new_heating, int new_cooling )
+void writeSettingsToEEPROM( int new_heating, int new_cooling )
 {
     write_eeprom( 0, new_heating );
     write_eeprom( 1, new_cooling );
@@ -443,7 +458,7 @@ void WriteSettingsToEEPROM( int new_heating, int new_cooling )
 }
 
 
-void GetSettingsFromEEPROM( void )
+void readSettingsFromEEPROM( void )
 {
     int chk_heating, chk_cooling;
     
@@ -459,7 +474,7 @@ void GetSettingsFromEEPROM( void )
     { 
         heating_mins = HEATING_DEFAULT;
         cooling_mins = COOLING_DEFAULT;
-        WriteSettingsToEEPROM( heating_mins, cooling_mins );
+        writeSettingsToEEPROM( heating_mins, cooling_mins );
     }
     
     
@@ -481,19 +496,19 @@ void StateMachine( void )
         switch(state)
         {
         case s_idle:
-            S_Idle();
+            state_Idle();
             break;
             
         case s_setting_heating:
-            S_SetHeating();
+            state_SetHeating();
             break;
             
         case s_setting_cooling:
-            S_SetCooling();
+            state_SetCooling();
             break;
             
         case s_heating:
-            S_DoHeating();
+            state_DoHeating();
             break;
             
         case s_cooling:
@@ -506,7 +521,7 @@ void StateMachine( void )
 
 void main(void )
 {
-    InitPlatform();
+    initPlatform();
     StateMachine();
 }
 

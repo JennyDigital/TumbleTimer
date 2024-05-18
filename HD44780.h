@@ -333,7 +333,7 @@ char LCD_Read_DDRAM     ( char dd_read_addr );
 void LCD_PutData        ( char dat );
 char LCD_DDRAM_Addr     ( char dd_x, char dd_y );
 char LCD_Putchar        ( char ch );
-void LCD_Printf         ( char * string );
+void LCD_Print          ( char * string );
 void LCD_Clear          ( void );
 
 // Extra functions

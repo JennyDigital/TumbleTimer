@@ -1,10 +1,10 @@
-void SetBacklight( int blset )
+void setBacklight( int blset )
 {
     //output_bit( BL_PIN, blset );
     set_pwm1_duty( blset );
 }
 
-void SetRunning( int htr_runset )
+void setRunning( int htr_runset )
 {    
     if( htr_runset )
     {
@@ -21,7 +21,7 @@ void SetRunning( int htr_runset )
     }
 }
 
-void SetHeating( int htr_heatset )
+void setHeating( int htr_heatset )
 {
     if( htr_heatset && running )
     {
@@ -45,19 +45,19 @@ short GetEncB( void )
     return input( ENC_B );
 }
 
-short GetEncBtn( void )
+short getEncButton( void )
 {
     return input( ENC_BTN );
 }
 
 
-short GetDoorState( void )
+short getDoorState( void )
 {
 //    return DOOR_CLOSED ;
     return input( DOOR_PIN );
 }
 
-void InitTimer2( void )
+void initTimer2( void )
 {
     setup_timer_2(T2_DIV_BY_4, 82, 1);
     set_timer2(20000);

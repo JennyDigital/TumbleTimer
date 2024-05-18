@@ -61,14 +61,14 @@
 int running = 0;
 int heating = 0;
     
-void    SetBacklight    ( int blset );
-void    SetRunning      ( int htr_runset );
-void    SetHeating      ( int htr_heatset );
+void    setBacklight    ( int blset );
+void    setRunning      ( int htr_runset );
+void    setHeating      ( int htr_heatset );
 short   GetEncA         ( void );
 short   GetEncB         ( void );
-short   GetEncBtn       ( void );
-short   GetDoorState    ( void );
-void    InitTimer2      ( void );
+short   getEncButton    ( void );
+short   getDoorState    ( void );
+void    initTimer2      ( void );
     
 
     

@@ -56,7 +56,7 @@ static void ISR_Ticker( void )
         btn_reset_flag = 0;
     }
     
-    if( GetEncBtn() )
+    if( getEncButton() )
     {
         btn_counter++;
 
@@ -67,7 +67,7 @@ static void ISR_Ticker( void )
         }
     }
     
-    if( !GetEncBtn() )
+    if( !getEncButton() )
     {
         if ( btn_counter >= BTN_PRESSED )
         {
@@ -97,7 +97,7 @@ static void ISR_Ticker( void )
 }
 
 
-void ServiceInterruptInit( void )
+void serviceInterruptInit( void )
 {
 	setup_timer_0(RTCC_DIV_1 | RTCC_INTERNAL);		// Setup interrupts
 
@@ -111,26 +111,26 @@ void ServiceInterruptInit( void )
  *
  *  ... or rather will when I'm done messing around (looks down and shuffles sand)
  */
-void Delay_Millis(unsigned int delay)
+void delay_Millis(unsigned int delay)
 {
   systick=delay;
   while(systick);
 }
 
 
-void WaitBtnLow( void )
+void waitBtnLow( void )
 {
     
-    while( GetEncBtn() )
+    while( getEncButton() )
     {
-        Delay_Millis( 100 );
-        ResetBtnState();
+        delay_Millis( 100 );
+        resetBtnState();
     }
     
 }
 
 
-unsigned long int GetButtonPress( void )
+unsigned long int getButtonPress( void )
 {    
     if( btn_state == BTN_OPEN )
     {
@@ -139,16 +139,16 @@ unsigned long int GetButtonPress( void )
     
     if( btn_state == BTN_LONGPRESSED )
     {
-        ResetBtnState();
+        resetBtnState();
         return BTN_LONGPRESSED;
     }
     
-    ResetBtnState();
+    resetBtnState();
     return BTN_PRESSED;
 }
 
 
-void ResetBtnState( void )
+void resetBtnState( void )
 {
     btn_reset_flag = 1;
     while( btn_reset_flag );

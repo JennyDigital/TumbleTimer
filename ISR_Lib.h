@@ -32,11 +32,11 @@ volatile unsigned int       minutes         = 0,
 
 
 void                ISR_Ticker              ( void );
-void                ServiceInterruptInit    ( void );
-void                Delay_Millis            ( unsigned int delay );
-void                WaitBtnLow              ( void );
-unsigned long int   GetButtonPress          ( void );
-void                ResetBtnState           ( void );
+void                serviceInterruptInit    ( void );
+void                delay_Millis            ( unsigned int delay );
+void                waitBtnLow              ( void );
+unsigned long int   getButtonPress          ( void );
+void                resetBtnState           ( void );
 
 #include "ISR_Lib.c"
 #endif

@@ -183,22 +183,22 @@ void LCD_Defchar( char ChToSet, char * ChDataset )
 {
   int ChAddress,
       ch_line,
-      dd_addr;
+      def_dd_addr;
    
   ChAddress = ChToSet << 3;
   
   LCD_SetRS( INST_REG );
   LCD_SetRNW( READ );
   LCD_SetE( ENABLE );
-  dd_addr = LCD_Input() & 0b1111111;
+  def_dd_addr = LCD_Input() & 0b1111111;
   LCD_SetE( DISABLE );
   delay_cycles( E_CYCLES );
 
 #ifdef LCD_BUS4BIT
 
-  dd_addr <<= 4;
+  def_dd_addr <<= 4;
   LCD_SetE( ENABLE );
-  dd_addr |= LCD_Input() & 0b1111111;
+  def_dd_addr |= LCD_Input() & 0b1111111;
   LCD_SetE( DISABLE );
   delay_cycles( E_CYCLES );
 
@@ -215,7 +215,7 @@ void LCD_Defchar( char ChToSet, char * ChDataset )
   }
   
  // LCD_BusyWait();
-  LCD_Command( SET_DDRAM_ADD | dd_addr );
+  LCD_Command( SET_DDRAM_ADD | def_dd_addr );
  // LCD_BusyWait();
 }
 
@@ -358,7 +358,7 @@ char LCD_Putchar( char ch )
 }
 
 
-void LCD_Printf( char * string )
+void LCD_Print( char * string )
 {
   while( ( *string ) != 0)
   {
